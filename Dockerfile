@@ -1,12 +1,7 @@
-FROM centos/ruby-22-centos7
-USER default
-EXPOSE 8080
-ENV RACK_ENV production
-ENV RAILS_ENV production
-COPY . /opt/app-root/src/
-RUN scl enable rh-ruby22 "bundle install"
-CMD ["scl", "enable", "rh-ruby22", "./run.sh"]
+FROM centos:centos7
 
-USER root
-RUN chmod og+rw /opt/app-root/src/db
-USER default
+EXPOSE 8080
+
+COPY index.html /var/run/web/index.html
+
+CMD cd /var/run/web && python -m SimpleHTTPServer 8080
